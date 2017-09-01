@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Employee"> 
+
+	<typeAlias alias="Employee" type="com.virtusa.ibatis.entity.Employee" />
+   
+   <insert id="insert" parameterClass="Employee">
+   		insert into employee (first_name, last_name, salary) values (#firstName#,#lastName#,#salary#)
+   </insert>
+   
+   <select id="getAllEmployees" resultClass="Employee">
+   		select * from employee
+   </select>
+   
+   <resultMap id="employeeRestuMap" class="Employee">
+   	<result property="id" column="id"/>
+   	<result property="firstName" column="first_name"/>
+   	<result property="lastName" column="last_name"/>
+   	<result property="salary" column="salary"/>
+   	
+   </resultMap>
+   
+   <select id="getById" parameterClass="java.lang.Integer" resultMap="employeeRestuMap">
+   		select * from employee where id = #value#
+   </select>
+   
+   <delete id="deleteById" parameterClass="java.lang.Integer">
+   		delete from employee where id = #value#
+   </delete>
+   
+   <update id="update" parameterClass="Employee">
+      update employee
+      SET    first_name = #firstName# , last_name = #lastName# , salary = #salary#
+      WHERE  id = #id#
+   </update>
+   
+
+</sqlMap>
+
